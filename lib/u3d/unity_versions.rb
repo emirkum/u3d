@@ -199,9 +199,13 @@ module U3d
 
         def list_available
           UI.message 'Loading Unity releases'
-          versions = @unity_forums.pagination_urls(UNITY_LINUX_DOWNLOADS).map do |page_url|
-            list_available_from_page(@unity_forums, unity_forums.page_content(page_url))
-          end.reduce({}, :merge)
+          #versions = @unity_forums.pagination_urls(UNITY_LINUX_DOWNLOADS).map do |page_url|
+          #  list_available_from_page(@unity_forums, unity_forums.page_content(page_url))
+          #end.reduce({}, :merge)
+
+          # [06/08/23] this is not working anymore, unity forums proceeds to redirect to require login page
+          # so we just use an empty map to bypass this forum check process
+          versions = {}
 
           versions_fetcher = VersionsFetcher.new(pattern: LINUX_INSTALLER)
           versions.merge!(versions_fetcher.fetch_json('linux'))

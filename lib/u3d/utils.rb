@@ -32,6 +32,9 @@ module U3d
     # Regex to capture each part of a version string (0.0.0x0)
     CSIDL_LOCAL_APPDATA = 0x001c
     UNITY_VERSION_REGEX = /(\d+)(?:\.(\d+)(?:\.(\d+))?)?(?:(\w)(?:(\d+))?)?/
+    MOZILLA_AGENT_HEADER = {
+      'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36'
+    }.freeze
 
     class << self
       def final_url(url, redirect_limit: 10)
@@ -53,6 +56,11 @@ module U3d
 
       def follow_redirects(url, redirect_limit: 10, http_method: :get, request_headers: {}, &block)
         raise 'Too many redirections' if redirect_limit.zero?
+
+        UI.message "accessing url: #{url}"
+        # Unity blocks the default Ruby agent, use another one
+        request_headers = MOZILLA_AGENT_HEADER.merge(request_headers)
+
         response = nil
         request = nil
         uri = URI(url)
