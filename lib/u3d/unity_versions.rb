@@ -210,6 +210,10 @@ module U3d
           versions_fetcher = VersionsFetcher.new(pattern: LINUX_INSTALLER)
           versions.merge!(versions_fetcher.fetch_json('linux'))
 
+          versions.each do |version, url|
+            UI.message "Version: #{version}, URL: #{url}"
+          end
+
           if versions.count.zero?
             UI.important 'Found no releases'
           else
