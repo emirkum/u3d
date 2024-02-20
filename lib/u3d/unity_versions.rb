@@ -205,7 +205,9 @@ module U3d
 
           # [06/08/23] this is not working anymore, unity forums proceeds to redirect to require login page
           # so we just use an empty map to bypass this forum check process
-          versions = {}
+          versions = {
+            "2018.1.2f1" => "https://download.unity3d.com/download_unity/732dbf75922d"
+          }
 
           versions_fetcher = VersionsFetcher.new(pattern: LINUX_INSTALLER)
           versions.merge!(versions_fetcher.fetch_json('linux'))
