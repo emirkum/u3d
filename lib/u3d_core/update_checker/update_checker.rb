@@ -81,7 +81,7 @@ module U3dCore
         puts("# An update for #{gem_name} is available. You are on #{current_version}.")
       end
       puts("# You should use the latest version.")
-      puts("# Please update using `#{update_command(gem_name: gem_name)}`.")
+      #puts("# Please update using `#{update_command(gem_name: gem_name)}`.")
 
       # this could be fetched from the gem
       puts("# To see what's new, open https://github.com/DragonBox/#{gem_name}/releases.") if U3dCore::Env.truthy?("U3D_HIDE_CHANGELOG")
@@ -92,7 +92,7 @@ module U3dCore
         puts("# Run `sudo gem cleanup` from time to time to speed up u3d")
       end
       puts('#######################################################################')
-      Changelog.show_changes(gem_name, current_version, update_gem_command: UpdateChecker.update_command(gem_name)) unless U3dCore::Env.truthy?("U3D_HIDE_CHANGELOG")
+      # Changelog.show_changes(gem_name, current_version, update_gem_command: UpdateChecker.update_command(gem_name)) unless U3dCore::Env.truthy?("U3D_HIDE_CHANGELOG")
 
       ensure_rubygems_source
     end
